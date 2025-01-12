@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助中心 - 时光记忆</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .help-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .help-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .help-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .help-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .contact-section {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-method {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-method i {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 复制 index.html 的导航栏和页脚 -->
+    <div class="content">
+        <div class="help-container">
+            <div class="help-header">
+                <h1>帮助中心</h1>
+                <p>找到您需要的所有帮助和支持</p>
+            </div>
+
+            <div class="faq-section">
+                <h2>常见问题</h2>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <h3>如何上传照片？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>您可以通过以下步骤上传照片：</p>
+                        <ol>
+                            <li>点击导航栏的"上传照片"按钮</li>
+                            <li>在弹出的窗口中选择要上传的照片</li>
+                            <li>添加相关描述和标签</li>
+                            <li>点击"上传"按钮完成</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <h3>如何创建回忆录？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>创建回忆录的步骤：</p>
+                        <ol>
+                            <li>进入"回忆录"页面</li>
+                            <li>点击"创建新回忆录"按钮</li>
+                            <li>选择模板和主题</li>
+                            <li>添加照片和文字描述</li>
+                            <li>保存并发布</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <h3>如何保护我的照片隐私？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我们提供多重隐私保护措施：</p>
+                        <ul>
+                            <li>可以设置照片为私密或仅朋友可见</li>
+                            <li>支持为不同相册设置不同的访问权限</li>
+                            <li>可以随时修改照片的隐私设置</li>
+                            <li>所有照片都经过加密存储</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2>联系我们</h2>
+                <p>如果您还有其他问题，欢迎通过以下方式联系我们</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h3>电子邮件</h3>
+                        <p>support@timememory.com</p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <h3>客服电话</h3>
+                        <p>400-123-4567</p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-weixin"></i>
+                        <h3>微信客服</h3>
+                        <p>TimememoryService</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function toggleAnswer(question) {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                answer.classList.toggle('active');
+                icon.classList.toggle('fa-chevron-up');
+                icon.classList.toggle('fa-chevron-down');
+            }
+        </script>
+    </div>
+</body>
+</html> 

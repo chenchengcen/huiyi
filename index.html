@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光记忆 - 留住珍贵回忆</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 1rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #7B9EE6;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #7B9EE6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons button {
+            padding: 0.5rem 1rem;
+            margin-left: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            border: 1px solid #7B9EE6;
+            color: #7B9EE6;
+        }
+
+        .auth-buttons button:last-child {
+            background-color: #7B9EE6;
+            color: #fff;
+        }
+
+        .auth-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(123, 158, 230, 0.2);
+        }
+
+        /* Banner样式 */
+        .banner {
+            height: 500px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, #fff, transparent);
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .banner button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #7B9EE6, #FFB6C1);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s backwards;
+            box-shadow: 0 4px 15px rgba(123, 158, 230, 0.3);
+        }
+
+        .banner button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(123, 158, 230, 0.4);
+            background: linear-gradient(135deg, #6B8ED6, #FFA6B1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 特色功能区域 */
+        .features {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+        .features h2 {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .features h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #7B9EE6;
+        }
+
+        .features p {
+            color: #666;
+            max-width: 600px;
+            margin: 1rem auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eee;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(123, 158, 230, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: #7B9EE6;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover i {
+            transform: scale(1.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card p {
+            color: #666;
+            text-align: center;
+            max-width: 80%;
+            transition: all 0.3s ease;
+        }
+
+        .feature-detail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(123, 158, 230, 0.97), rgba(255, 182, 193, 0.97));
+            color: white;
+            padding: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-card:hover .feature-detail {
+            transform: translateX(0);
+        }
+
+        .feature-detail h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .feature-detail h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: white;
+            margin: 0.5rem auto;
+        }
+
+        .feature-detail ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .feature-detail li {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .feature-detail li::before {
+            content: '✓';
+            margin-right: 0.5rem;
+            color: #fff;
+        }
+
+        .feature-detail button {
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background-color: white;
+            color: #7B9EE6;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-detail button:hover {
+            background-color: #7B9EE6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 用户故事区域 */
+        .stories {
+            padding: 4rem 5%;
+            background-color: #f1f3f5;
+        }
+
+        .stories h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .story-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .story-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-content h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .story-content p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .story-meta {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .story-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .story-meta span {
+            margin-right: 1rem;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 2rem 5%;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-info h3,
+        .footer-links h3,
+        .footer-social h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: #7B9EE6;
+        }
+
+        .footer-info p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #7B9EE6;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #7B9EE6, #FFB6C1);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #7B9EE6;
+            background-color: #fff5f5;
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            margin: 1rem 0;
+            color: #666;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #7B9EE6, #FFB6C1);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: linear-gradient(135deg, #6B8ED6, #FFA6B1);
+        }
+
+        /* 预览区域样式 */
+        .preview-area {
+            display: none;
+            margin: 1rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preview-area.active {
+            display: block;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .preview-item .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background: #7B9EE6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* 进度条样式 */
+        .progress-area {
+            display: none;
+            margin: 1rem 0;
+        }
+
+        .progress-area.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #7B9EE6, #FFB6C1);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #666;
+        }
+
+        /* 故事详情模态框样式 */
+        .story-modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .story-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .story-detail img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .story-detail-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-detail-content h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .story-detail-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-detail-meta {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .story-detail-meta .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        /* 登录模态框样式 */
+        .login-modal-content {
+            max-width: 400px;
+            padding: 2.5rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #7B9EE6;
+            box-shadow: 0 0 0 2px rgba(123, 158, 230, 0.1);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #7B9EE6, #FFB6C1);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, #6B8ED6, #FFA6B1);
+            transform: translateY(-2px);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .form-footer a {
+            color: #7B9EE6;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* 注册模态框样式 */
+        .register-modal-content {
+            max-width: 450px;
+            padding: 2.5rem;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .password-requirements {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        .password-requirements li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.3rem 0;
+        }
+
+        .password-requirements li i {
+            font-size: 0.8rem;
+        }
+
+        .requirement-met {
+            color: #4CAF50;
+        }
+
+        .requirement-not-met {
+            color: #999;
+        }
+
+        .nav-menu a.active {
+            color: #7B9EE6;
+        }
+
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .feature-card button {
+            pointer-events: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: #333;">时光记忆</a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="active">首页</a></li>
+            <li><a href="javascript:void(0)" onclick="handleNavClick('upload')">上传照片</a></li>
+            <li><a href="javascript:void(0)" onclick="handleNavClick('memories')">回忆录</a></li>
+            <li><a href="javascript:void(0)" onclick="handleNavClick('discover')">发现</a></li>
+            <li><a href="javascript:void(0)" onclick="handleNavClick('profile')">个人中心</a></li>
+            <li><a href="javascript:void(0)" onclick="handleNavClick('help')">帮助</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button onclick="openLoginModal()">登录</button>
+            <button onclick="openRegisterModal()">注册</button>
+        </div>
+    </nav>
+
+    <!-- Banner区域 -->
+    <section class="banner">
+        <h1>记录美好时光，珍藏永恒回忆</h1>
+        <p>时光记忆，让每一张照片都讲述一个故事，让每一个瞬间都成为永恒。快来创建属于你的专属回忆空间。</p>
+        <button onclick="openUploadModal()">开始上传</button>
+    </section>
+
+    <!-- 上传照片模态框 -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeUploadModal()">&times;</span>
+            <h2>上传照片</h2>
+            <div class="upload-area" onclick="triggerFileInput()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p class="upload-text">点击或拖拽照片到这里上传</p>
+                <p class="upload-text">支持 JPG、PNG 格式</p>
+                <input type="file" id="fileInput" style="display: none" accept="image/*" multiple onchange="handleFiles(this.files)">
+            </div>
+            <div class="preview-area" id="previewArea">
+                <div class="preview-grid" id="previewGrid"></div>
+            </div>
+            <div class="progress-area" id="progressArea">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">准备上传...</div>
+            </div>
+            <button class="upload-btn" onclick="uploadFiles()">开始上传</button>
+        </div>
+    </div>
+
+    <!-- 特色功能展示 -->
+    <section class="features">
+        <h2>我们的特色功能</h2>
+        <p>探索时光记忆的独特功能，让回忆更有温度</p>
+        <div class="features-grid">
+            <div class="feature-card" onclick="handleFeatureClick('upload', '智能照片管理')">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>上传与整理</h3>
+                <p>轻松上传照片，智能分类整理，让回忆井然有序</p>
+                <div class="feature-detail">
+                    <h4>智能照片管理</h4>
+                    <ul>
+                        <li>支持批量上传</li>
+                        <li>智能人脸识别</li>
+                        <li>自动时间地点标注</li>
+                        <li>智能相册分类</li>
+                    </ul>
+                    <button>立即体验</button>
+                </div>
+            </div>
+            <div class="feature-card" onclick="handleFeatureClick('memories', '创建精美回忆录')">
+                <i class="fas fa-book-open"></i>
+                <h3>回忆录</h3>
+                <p>创建专属回忆录，为照片添加故事，记录精彩瞬间</p>
+                <div class="feature-detail">
+                    <h4>创建精美回忆录</h4>
+                    <ul>
+                        <li>多种模板选择</li>
+                        <li>文字语音记录</li>
+                        <li>时间轴展示</li>
+                        <li>一键生成相册</li>
+                    </ul>
+                    <button>开始创建</button>
+                </div>
+            </div>
+            <div class="feature-card" onclick="handleFeatureClick('discover', '社交分享功能')">
+                <i class="fas fa-share-alt"></i>
+                <h3>分享与互动</h3>
+                <p>与亲朋好友分享回忆，共同回顾美好时光</p>
+                <div class="feature-detail">
+                    <h4>社交分享功能</h4>
+                    <ul>
+                        <li>一键分享故事</li>
+                        <li>好友互动评论</li>
+                        <li>私密权限设置</li>
+                        <li>群组回忆录</li>
+                    </ul>
+                    <button>去发现</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 用户故事展示 -->
+    <section class="stories">
+        <h2>精选回忆故事</h2>
+        <div class="stories-grid">
+            <div class="story-card" onclick="openStoryDetail(this)" 
+                 data-image="https://images.unsplash.com/photo-1596436889106-be35e843f974"
+                 data-title="童年时光"
+                 data-desc="记录着80年代的欢乐童年，老式自行车、弹珠游戏，还有那些放学后的追逐打闹。那是一个没有手机和互联网的年代，我们的快乐来自于简单的游戏和真实的互动。放学后，小伙伴们会聚在一起，玩弹珠、跳皮筋、踢毽子。街坊邻居都认识，经常互相串门，分享美食和故事。这些珍贵的回忆，构成了我们最纯真的童年时光。"
+                 data-likes="328"
+                 data-comments="42"
+                 data-date="2024-03-15">
+                <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974" alt="童年时光">
+                <div class="story-content">
+                    <h3>童年时光</h3>
+                    <p>记录着80年代的欢乐童年，老式自行车、弹珠游戏，还有那些放学后的追逐打闹...</p>
+                    <div class="story-meta">
+                        <i class="far fa-heart"></i><span>328</span>
+                        <i class="far fa-comment"></i><span>42</span>
+                    </div>
+                </div>
+            </div>
+            <div class="story-card" onclick="openStoryDetail(this)" 
+                 data-image="https://images.unsplash.com/photo-1517457373958-b7bdd4587205"
+                 data-title="毕业季"
+                 data-desc="翻开泛黄的毕业相册，那些青春洋溢的笑脸，依然清晰如昨。那年夏天，我们挥别校园..."
+                 data-likes="256"
+                 data-comments="38"
+                 data-date="2024-03-15">
+                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205" alt="毕业季">
+                <div class="story-content">
+                    <h3>毕业季回忆</h3>
+                    <p>翻开泛黄的毕业相册，那些青春洋溢的笑脸，依然清晰如昨。那年夏天，我们挥别校园...</p>
+                    <div class="story-meta">
+                        <i class="far fa-heart"></i><span>256</span>
+                        <i class="far fa-comment"></i><span>38</span>
+                    </div>
+                </div>
+            </div>
+            <div class="story-card" onclick="openStoryDetail(this)" 
+                 data-image="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                 data-title="老街记忆"
+                 data-desc="城市的角落里，还保留着那条熟悉的老街。油条铺的香气，早点摊的烟火气息，都是最真实的市井生活..."
+                 data-likes="412"
+                 data-comments="56"
+                 data-date="2024-03-15">
+                <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="老街记忆">
+                <div class="story-content">
+                    <h3>老街记忆</h3>
+                    <p>城市的角落里，还保留着那条熟悉的老街。油条铺的香气，早点摊的烟火气息，都是最真实的市井生活...</p>
+                    <div class="story-meta">
+                        <i class="far fa-heart"></i><span>412</span>
+                        <i class="far fa-comment"></i><span>56</span>
+                    </div>
+                </div>
+            </div>
+            <div class="story-card" onclick="openStoryDetail(this)" 
+                 data-image="https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                 data-title="家庭相册"
+                 data-desc="翻开尘封已久的相册，一张张全家福诉说着我们的故事。时光飞逝，但温暖永存..."
+                 data-likes="286"
+                 data-comments="45"
+                 data-date="2024-03-15">
+                <img src="https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="家庭相册">
+                <div class="story-content">
+                    <h3>家庭相册</h3>
+                    <p>翻开尘封已久的相册，一张张全家福诉说着我们的故事。时光飞逝，但温暖永存...</p>
+                    <div class="story-meta">
+                        <i class="far fa-heart"></i><span>286</span>
+                        <i class="far fa-comment"></i><span>45</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>关于我们</h3>
+                <p>时光记忆致力于帮助用户保存和分享珍贵的照片记忆。我们相信每一张照片背后都有一个值得被记住的故事，让我们一起留住美好，传承记忆。</p>
+            </div>
+            <div class="footer-links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#privacy">隐私政策</a></li>
+                    <li><a href="#terms">服务条款</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                    <li><a href="#faq">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>关注我们</h3>
+                <div class="social-icons">
+                    <a href="#" title="微信">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                    <a href="#" title="微博">
+                        <i class="fab fa-weibo"></i>
+                    </a>
+                    <a href="#" title="QQ">
+                        <i class="fab fa-qq"></i>
+                    </a>
+                    <a href="#" title="抖音">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 时光记忆. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 故事详情模态框 -->
+    <div class="modal" id="storyModal">
+        <div class="modal-content story-modal-content">
+            <span class="close-modal" onclick="closeStoryModal()">&times;</span>
+            <div class="story-detail">
+                <img id="storyDetailImage" src="" alt="故事图片">
+                <div class="story-detail-content">
+                    <h2 id="storyDetailTitle"></h2>
+                    <p id="storyDetailDesc"></p>
+                    <div class="story-detail-meta">
+                        <div class="meta-item">
+                            <i class="far fa-heart"></i>
+                            <span id="storyDetailLikes"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="far fa-comment"></i>
+                            <span id="storyDetailComments"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="far fa-clock"></i>
+                            <span id="storyDetailDate"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content login-modal-content">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 1.5rem;">登录</h2>
+            <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error-message" id="loginError"></div>
+                </div>
+                <button type="submit" class="login-btn">登录</button>
+                <div class="form-footer">
+                    <a href="#" onclick="openRegisterModal(); closeLoginModal();">注册新账号</a>
+                    <span>|</span>
+                    <a href="#" onclick="alert('忘记密码功能开发中...')">忘记密码？</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content register-modal-content">
+            <span class="close-modal" onclick="closeRegisterModal()">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 1.5rem;">注册新账号</h2>
+            <form class="register-form" id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerUsername">用户名</label>
+                    <input type="text" id="registerUsername" name="username" required 
+                           minlength="3" maxlength="20" pattern="[a-zA-Z0-9_-]+"
+                           onkeyup="validateUsername(this.value)">
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">邮箱</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">密码</label>
+                    <input type="password" id="registerPassword" name="password" required
+                           onkeyup="validatePassword(this.value)">
+                    <div class="password-requirements">
+                        <p>密码要求：</p>
+                        <ul>
+                            <li id="lengthReq"><i class="fas fa-circle"></i> 至少8个字符</li>
+                            <li id="upperReq"><i class="fas fa-circle"></i> 至少一个大写字母</li>
+                            <li id="lowerReq"><i class="fas fa-circle"></i> 至少一个小写字母</li>
+                            <li id="numberReq"><i class="fas fa-circle"></i> 至少一个数字</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required
+                           onkeyup="validateConfirmPassword()">
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
+                <button type="submit" class="login-btn">注册</button>
+                <div class="form-footer">
+                    已有账号？<a href="#" onclick="openLoginModal(); closeRegisterModal();">立即登录</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('active');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('active');
+            // 清理预览和进度
+            selectedFiles = [];
+            document.getElementById('previewGrid').innerHTML = '';
+            document.getElementById('previewArea').classList.remove('active');
+            document.getElementById('progressArea').classList.remove('active');
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressText').textContent = '准备上传...';
+        }
+
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFiles(files) {
+            selectedFiles = Array.from(files);
+            const previewArea = document.getElementById('previewArea');
+            const previewGrid = document.getElementById('previewGrid');
+            previewGrid.innerHTML = '';
+
+            selectedFiles.forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'preview-item';
+                        previewItem.innerHTML = `
+                            <img src="${e.target.result}" alt="预览图片">
+                            <div class="remove-btn" onclick="removeFile(${index})">&times;</div>
+                        `;
+                        previewGrid.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            previewArea.classList.add('active');
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            handleFiles(selectedFiles);
+        }
+
+        function uploadFiles() {
+            if (selectedFiles.length === 0) {
+                alert('请先选择要上传的照片');
+                return;
+            }
+
+            // 显示进度区域
+            const progressArea = document.getElementById('progressArea');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            progressArea.classList.add('active');
+
+            // 模拟上传进度
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressFill.style.width = `${progress}%`;
+                progressText.textContent = `上传中... ${progress}%`;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressText.textContent = '上传完成！';
+                    setTimeout(() => {
+                        alert('照片上传成功！');
+                        closeUploadModal();
+                    }, 1000);
+                }
+            }, 200);
+
+            // 这里是模拟上传，实际项目中需要替换为真实的上传逻辑
+            // const formData = new FormData();
+            // selectedFiles.forEach(file => {
+            //     formData.append('photos[]', file);
+            // });
+            // fetch('/api/upload', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('上传成功:', data);
+            // })
+            // .catch(error => {
+            //     console.error('上传失败:', error);
+            // });
+        }
+
+        // 支持拖拽上传
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#7B9EE6';
+            uploadArea.style.backgroundColor = '#fff5f5';
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '#fff';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '#fff';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                handleFiles(files);
+            }
+        });
+
+        function openStoryDetail(card) {
+            const modal = document.getElementById('storyModal');
+            const image = document.getElementById('storyDetailImage');
+            const title = document.getElementById('storyDetailTitle');
+            const desc = document.getElementById('storyDetailDesc');
+            const likes = document.getElementById('storyDetailLikes');
+            const comments = document.getElementById('storyDetailComments');
+            const date = document.getElementById('storyDetailDate');
+
+            image.src = card.dataset.image;
+            title.textContent = card.dataset.title;
+            desc.textContent = card.dataset.desc;
+            likes.textContent = card.dataset.likes;
+            comments.textContent = card.dataset.comments;
+            date.textContent = card.dataset.date;
+
+            modal.classList.add('active');
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.remove('active');
+        }
+
+        function handleNavClick(page) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (!isLoggedIn && (page === 'profile' || page === 'memories')) {
+                alert('请先登录后再访问此页面');
+                openLoginModal();
+                return;
+            }
+
+            switch(page) {
+                case 'upload':
+                    openUploadModal();
+                    break;
+                case 'memories':
+                    if (isLoggedIn) {
+                        window.location.href = 'memories.html';
+                    }
+                    break;
+                case 'discover':
+                    window.location.href = 'discover.html';
+                    break;
+                case 'profile':
+                    if (isLoggedIn) {
+                        window.location.href = 'profile.html';
+                    }
+                    break;
+                case 'help':
+                    window.location.href = 'help.html';
+                    break;
+            }
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginForm').reset();
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('loginError');
+
+            // 这里是模拟的登录验证，实际项目中需要与后端API交互
+            if (username === 'demo' && password === 'password') {
+                // 登录成功
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', username);
+                closeLoginModal();
+                updateUIAfterLogin();
+                alert('登录成功！');
+            } else {
+                // 登录失败
+                errorElement.textContent = '用户名或密码错误';
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function updateUIAfterLogin() {
+            const authButtons = document.querySelector('.auth-buttons');
+            const username = localStorage.getItem('username');
+            authButtons.innerHTML = `
+                <span style="margin-right: 1rem; color: #333;">欢迎，${username}</span>
+                <button onclick="handleLogout()">退出</button>
+            `;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+            location.reload();
+        }
+
+        // 页面加载时检查登录状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
+                updateUIAfterLogin();
+            }
+        });
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').classList.add('active');
+            document.getElementById('registerForm').reset();
+            resetPasswordRequirements();
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').classList.remove('active');
+        }
+
+        function validateUsername(username) {
+            const error = document.getElementById('usernameError');
+            if (username.length < 3) {
+                error.textContent = '用户名至少需要3个字符';
+                error.style.display = 'block';
+                return false;
+            }
+            if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+                error.textContent = '用户名只能包含字母、数字、下划线和横线';
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validatePassword(password) {
+            const requirements = {
+                lengthReq: password.length >= 8,
+                upperReq: /[A-Z]/.test(password),
+                lowerReq: /[a-z]/.test(password),
+                numberReq: /[0-9]/.test(password)
+            };
+
+            for (const [req, met] of Object.entries(requirements)) {
+                const element = document.getElementById(req);
+                element.firstChild.className = met ? 
+                    'fas fa-check requirement-met' : 
+                    'fas fa-circle requirement-not-met';
+            }
+
+            return Object.values(requirements).every(Boolean);
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const error = document.getElementById('confirmPasswordError');
+
+            if (password !== confirmPassword) {
+                error.textContent = '两次输入的密码不一致';
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function resetPasswordRequirements() {
+            const requirements = ['lengthReq', 'upperReq', 'lowerReq', 'numberReq'];
+            requirements.forEach(req => {
+                const element = document.getElementById(req);
+                element.firstChild.className = 'fas fa-circle requirement-not-met';
+            });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (!validateUsername(username) || 
+                !validatePassword(password) || 
+                !validateConfirmPassword()) {
+                return;
+            }
+
+            // 模拟注册过程
+            // 实际项目中需要发送到后端API
+            localStorage.setItem('registeredUsername', username);
+            localStorage.setItem('registeredEmail', email);
+            localStorage.setItem('registeredPassword', password); // 实际项目中不要这样存储密码
+
+            alert('注册成功！请登录');
+            closeRegisterModal();
+            openLoginModal();
+        }
+
+        // 设置当前页面的导航项为活动状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        function handleFeatureClick(feature, title) {
+            // 添加点击动画效果
+            const card = event.currentTarget;
+            card.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                card.style.transform = 'translateY(-10px)';
+            }, 100);
+
+            // 将功能信息存储到 localStorage
+            localStorage.setItem('selectedFeature', JSON.stringify({
+                type: feature,
+                title: title,
+                timestamp: new Date().getTime()
+            }));
+
+            // 延迟跳转以显示动画效果
+            setTimeout(() => {
+                switch(feature) {
+                    case 'upload':
+                        openUploadModal();
+                        break;
+                    case 'memories':
+                        window.location.href = `memories.html?feature=${feature}&title=${encodeURIComponent(title)}`;
+                        break;
+                    case 'discover':
+                        window.location.href = `discover.html?feature=${feature}&title=${encodeURIComponent(title)}`;
+                        break;
+                }
+            }, 200);
+        }
+
+        // 添加卡片悬停动画效果
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('i');
+                icon.style.transform = 'scale(1.2) rotate(10deg)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1.2) rotate(0deg)';
+                }, 200);
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('i');
+                icon.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html> 
